@@ -1,5 +1,6 @@
 import cors from '@fastify/cors'
-import { FastifyInstance, fastify } from 'fastify'
+import { fastify, FastifyInstance } from 'fastify'
+import { authRoutes } from '../controllers/authentication/routes'
 import { healthCheckRoutes } from '../controllers/healthCheck/routes'
 import { usersRoutes } from '../controllers/users/routes'
 
@@ -10,5 +11,7 @@ app.register(cors, {
 })
 
 app.register(healthCheckRoutes)
+
+app.register(authRoutes)
 
 app.register(usersRoutes, { prefix: '/users' })

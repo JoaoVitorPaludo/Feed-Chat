@@ -1,8 +1,8 @@
 import { FastifyInstance } from 'fastify'
-import { loginApplication } from '../authentication/login/login-application'
+import { createUsers } from './createUsers/create-users'
 import { listUsers } from './listUsers/list-users'
 
 export async function usersRoutes(app: FastifyInstance) {
   app.get('/', listUsers)
-  app.post('/create', loginApplication)
+  app.post('/create', createUsers)
 }

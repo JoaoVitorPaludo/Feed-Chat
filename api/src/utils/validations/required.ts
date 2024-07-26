@@ -5,4 +5,3 @@ const required = (value: any, name?: string) => {
 }
 
 export { required }
-
