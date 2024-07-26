@@ -1,7 +1,9 @@
+import bcrypt from 'bcrypt'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import jwt from 'jsonwebtoken'
 import knex from '../../../config/database'
 import { required } from '../../../utils/validations/required'
+
 interface loginDataProps {
   email: string
   password: string
@@ -23,8 +25,13 @@ export async function loginApplication(
     throw new Error('Email ou senha incorretos')
   }
 
+  const passwordMatch = await bcrypt.compare(
+    loginData.password,
+    user.rows[0].password,
+  )
+
   // Verifica se a senha está correta
-  if (user.rows[0].password !== loginData.password) {
+  if (!passwordMatch) {
     throw new Error('Email ou senha incorretos')
   }
 
@@ -38,11 +45,12 @@ export async function loginApplication(
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: '7d',
+      expiresIn: '1d',
     },
   )
 
   return reply.send({
     token,
+    user: user.rows[0],
   })
 }

@@ -25,12 +25,21 @@ export async function createUsers(
 
   jwt.verify(token as string, process.env.JWT_SECRET)
 
+  // Verifica se já existe um usuário com este email
+  const existingUser =
+    await knex.raw(`select * from users u where email = '${userObject.email}';
+`)
+
+  if (existingUser.rows.length > 0) {
+    throw new Error('Já existe um usuário com este email')
+  }
+
   // Criptografando a senha do usuário
   const cryptPassword = await bcrypt.hash(userObject.password, 10)
 
   // Inserindo o novo usuário no banco de dados
   await knex.raw(`insert into users (name, office, email, password, image, createdAt)
-                  values ('${userObject.username}', '${userObject.office}', '${userObject.email}', '${cryptPassword}', '${userObject.image}', NOW());`)
+                  values ('${userObject.username}', '${userObject.office}', '${userObject.email}', '${cryptPassword}', '${userObject.image || null}', NOW());`)
 
   return reply.status(201).send({
     message: 'Usuário criado com sucesso!',
