@@ -1,7 +1,7 @@
 import cors from '@fastify/cors'
 import { FastifyInstance, fastify } from 'fastify'
 import { healthCheckRoutes } from '../controllers/healthCheck/routes'
-import { listUsersRoutes } from '../controllers/users/listUsers/routes'
+import { usersRoutes } from '../controllers/users/routes'
 
 export const app: FastifyInstance = fastify()
 
@@ -11,4 +11,4 @@ app.register(cors, {
 
 app.register(healthCheckRoutes)
 
-app.register(listUsersRoutes, { prefix: '/users' })
+app.register(usersRoutes, { prefix: '/users' })

@@ -1,5 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-
+import knex from '../../../config/database'
 export async function listUsers(request: FastifyRequest, reply: FastifyReply) {
-  return reply.status(200).send({ message: 'User list' })
+  const result = await knex.raw(`select * from users`)
+
+  return reply.status(200).send(result.rows)
 }
