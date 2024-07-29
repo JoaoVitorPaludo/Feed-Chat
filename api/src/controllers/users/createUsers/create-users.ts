@@ -39,7 +39,7 @@ export async function createUsers(
 
   // Inserindo o novo usuário no banco de dados
   await knex.raw(`insert into users (name, office, email, password, image, createdAt)
-                  values ('${userObject.username}', '${userObject.office}', '${userObject.email}', '${cryptPassword}', '${userObject.image || null}', NOW());`)
+                  values ('${userObject.username}', '${userObject.office || ''}', '${userObject.email}', '${cryptPassword}', '${userObject.image || ''}', NOW());`)
 
   return reply.status(201).send({
     message: 'Usuário criado com sucesso!',

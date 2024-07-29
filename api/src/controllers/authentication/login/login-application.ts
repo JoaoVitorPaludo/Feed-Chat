@@ -8,6 +8,15 @@ interface loginDataProps {
   email: string
   password: string
 }
+export interface userObject {
+  id: number
+  name: string
+  office: string
+  email: string
+  password: string
+  image: Buffer
+  createdAt: Date
+}
 export async function loginApplication(
   request: FastifyRequest,
   reply: FastifyReply,
@@ -20,6 +29,16 @@ export async function loginApplication(
   const user =
     await knex.raw(`select * from users where email = '${loginData.email}' 
   `)
+
+  const userObject = {
+    createdAt: user.rows[0].createdat,
+    email: user.rows[0].email,
+    id: user.rows[0].id,
+    image: user.rows[0].image.toString('base64'),
+    name: user.rows[0].name,
+    office: user.rows[0].office,
+    password: user.rows[0].password,
+  } as userObject
 
   if (user.rows.length === 0) {
     throw new Error('Email ou senha incorretos')
@@ -51,6 +70,6 @@ export async function loginApplication(
 
   return reply.send({
     token,
-    user: user.rows[0],
+    user: userObject,
   })
 }

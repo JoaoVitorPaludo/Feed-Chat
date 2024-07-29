@@ -9,5 +9,16 @@ export async function listUsers(request: FastifyRequest, reply: FastifyReply) {
 
   const result = await knex.raw(`select * from users`)
 
-  return reply.status(200).send(result.rows)
+  const users = result.rows.map((user) => {
+    if (user.image) {
+      // Converte a imagem para um formato apropriado
+      user.image = Buffer.from(user.image).toString('base64')
+    } else {
+      // Se a imagem for NULL, retorna NULL
+      user.image = null
+    }
+    return user
+  })
+
+  return reply.status(200).send(users)
 }

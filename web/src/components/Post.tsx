@@ -1,77 +1,77 @@
-import { format, formatDistanceToNow } from "date-fns";
-import ptBR from "date-fns/locale/pt-BR";
-import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
+import { format, formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 
-import { Avatar } from "./Avatar";
-import { Comment } from "./Comment";
+import { Avatar } from './Avatar'
+import { Comment } from './Comment'
 
-import styles from "./Post.module.css";
+import styles from './Post.module.css'
 
 interface Author {
-  name: string;
-  role: string;
-  avatarUrl: string;
+  name: string
+  role: string
+  avatarUrl: string
 }
 
 interface Content {
-  type: "paragraph" | "link";
-  content: string;
+  type: 'paragraph' | 'link'
+  content: string
 }
 
 export interface PostType {
-  id: number;
-  author: Author;
-  publishedAt: Date;
-  content: Content[];
+  id: number
+  author: Author
+  publishedAt: Date
+  content: Content[]
 }
 
 interface PostProps {
-  post: PostType;
+  post: PostType
 }
 
 export function Post({ post }: PostProps) {
-  const [comments, setComments] = useState(["Post muito bacana, hein?!"]);
+  const [comments, setComments] = useState(['Post muito bacana, hein?!'])
 
-  const [newCommentText, setNewCommentText] = useState("");
+  const [newCommentText, setNewCommentText] = useState('')
 
   const publishedDateFormatted = format(
     post.publishedAt,
     "d 'de' LLLL 'às' HH:mm'h'",
     {
       locale: ptBR,
-    }
-  );
+    },
+  )
 
   const publishedDateRelativeToNow = formatDistanceToNow(post.publishedAt, {
     locale: ptBR,
     addSuffix: true,
-  });
+  })
 
   function handleCrateNewComment(event: FormEvent) {
-    event.preventDefault();
+    event.preventDefault()
 
-    setComments([...comments, newCommentText]);
-    setNewCommentText("");
+    setComments([...comments, newCommentText])
+    setNewCommentText('')
   }
 
   function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
-    event.target.setCustomValidity("");
-    setNewCommentText(event.target.value);
+    event.target.setCustomValidity('')
+    setNewCommentText(event.target.value)
   }
 
   function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
-    event.target.setCustomValidity("Esse campo é obrigatório!");
+    event.target.setCustomValidity('Esse campo é obrigatório!')
   }
 
   function deleteComment(commentToDelete: string) {
     const commentsWithoutDeletedOne = comments.filter((comment) => {
-      return comment !== commentToDelete;
-    });
+      return comment !== commentToDelete
+    })
 
-    setComments(commentsWithoutDeletedOne);
+    setComments(commentsWithoutDeletedOne)
   }
 
-  const isNewCommentEmpty = newCommentText.length === 0;
+  const isNewCommentEmpty = newCommentText.length === 0
 
   return (
     <article className={styles.post}>
@@ -94,14 +94,14 @@ export function Post({ post }: PostProps) {
 
       <div className={styles.content}>
         {post.content.map((line) => {
-          if (line.type === "paragraph") {
-            return <p key={line.content}>{line.content}</p>;
-          } else if (line.type === "link") {
+          if (line.type === 'paragraph') {
+            return <p key={line.content}>{line.content}</p>
+          } else if (line.type === 'link') {
             return (
               <p key={line.content}>
                 <a href="#">{line.content}</a>
               </p>
-            );
+            )
           }
         })}
       </div>
@@ -133,9 +133,9 @@ export function Post({ post }: PostProps) {
               content={comment}
               onDeleteComment={deleteComment}
             />
-          );
+          )
         })}
       </div>
     </article>
-  );
+  )
 }
