@@ -1,11 +1,6 @@
-import { GlobalProvider } from './context/globalContext/globalContext'
 import './global.css'
-import { LoginPage } from './pages/loginPage/loginPage'
+import { PublicRoutes } from './routes/mainRoute.routes'
 
 export function App() {
-  return (
-    <GlobalProvider>
-      <LoginPage />
-    </GlobalProvider>
-  )
+  return <PublicRoutes />
 }

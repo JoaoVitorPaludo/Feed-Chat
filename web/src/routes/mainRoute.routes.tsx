@@ -1,8 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { GlobalProvider } from '../context/globalContext/globalContext'
 import { DashboardPage } from '../pages/dashboardPage/dashboardPage'
 import { LoginPage } from '../pages/loginPage/loginPage'
 
 export function PrivateRoutes() {
+  const token = sessionStorage.getItem('token')
+  console.log('token', token)
+  if (token === null) {
+    return <LoginPage />
+  }
   return (
     <Routes>
       <Route path="/dashboard" element={<DashboardPage />} />
@@ -12,11 +18,13 @@ export function PrivateRoutes() {
 
 export function PublicRoutes() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/*" element={<PrivateRoutes />} />
-      </Routes>
-    </BrowserRouter>
+    <GlobalProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/*" element={<PrivateRoutes />} />
+        </Routes>
+      </BrowserRouter>
+    </GlobalProvider>
   )
 }

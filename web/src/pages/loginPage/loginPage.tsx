@@ -27,7 +27,12 @@ export function LoginPage() {
           }
         />
 
-        <button onClick={() => handleAuthenticate()}>Entrar</button>
+        <button
+          className={styles.loginButton}
+          onClick={() => handleAuthenticate()}
+        >
+          Entrar
+        </button>
       </main>
     </div>
   )

@@ -33,9 +33,12 @@
   border-top: 1px solid var(--gray-600);
   margin-top: 1.5rem;
   padding: 1.5rem 2rem 2rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebar footer a {
+.sidebar footer a, button {
   background: transparent;
   color: var(--green-500);
   border: 1px solid var(--green-500);
@@ -45,7 +48,7 @@
   font-weight: bold;
   display: block;
   text-decoration: none;
-
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,7 +56,9 @@
   transition: color 0.1s, background-color 0.1s;
 }
 
-.sidebar footer a:hover {
+.sidebar footer a:hover, button:hover  {
   background-color: var(--green-500);
   color: var(--white);
 }
+
+

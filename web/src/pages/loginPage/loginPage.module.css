@@ -35,7 +35,7 @@ input{
     line-height: 1.4;
 }
 
-button{
+.loginButton{
     background-color: var(--green-500);
     color: var(--white) ;
     border: 0;

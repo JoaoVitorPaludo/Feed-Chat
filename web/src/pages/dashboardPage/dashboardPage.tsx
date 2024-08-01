@@ -1,6 +1,6 @@
 import { Header } from '../../components/Header'
 import { Post, PostType } from '../../components/Post'
-import { Sidebar } from '../../components/Sidebar'
+import { Sidebar } from './components/sidebarCard/Sidebar'
 import styles from './dashboardPage.module.css'
 
 export function DashboardPage() {
