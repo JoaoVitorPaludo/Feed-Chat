@@ -1,7 +1,7 @@
 import { PencilLine, SignOut } from 'phosphor-react'
 import { Avatar } from '../../../../components/avatar/Avatar'
 import styles from './Sidebar.module.css'
-import { useSidebarCard } from './useSidebarCard'
+import { useSidebarCard } from './useSidebar'
 export function Sidebar() {
   const { handleExit, userProfile } = useSidebarCard()
   return (

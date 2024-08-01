@@ -12,7 +12,7 @@ export async function listUsers(request: FastifyRequest, reply: FastifyReply) {
   const users = result.rows.map((user) => {
     if (user.image) {
       // Converte a imagem para um formato apropriado
-      user.image = Buffer.from(user.image).toString('base64')
+      user.image = Buffer.from(user.image).toString()
     } else {
       // Se a imagem for NULL, retorna NULL
       user.image = null

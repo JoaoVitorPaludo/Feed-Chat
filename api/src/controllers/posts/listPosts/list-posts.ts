@@ -6,7 +6,7 @@ interface PostsObjectProps {
   id: number
   message: string
   createdat: string
-  userId: number
+  userid: number
 }
 export async function listPosts(request: FastifyRequest, reply: FastifyReply) {
   const { token } = request.headers
@@ -21,13 +21,23 @@ export async function listPosts(request: FastifyRequest, reply: FastifyReply) {
 
   const sendObject = await Promise.all(
     posts.rows.map(async (post: PostsObjectProps) => {
-      const user = await knex.raw(`SELECT * FROM users WHERE id = ${post.id}`)
+      const user = await knex.raw(
+        `SELECT * FROM users WHERE id = ${post.userid}`,
+      )
 
       return {
         id: post.id,
         message: post.message,
         createdat: post.createdat,
-        user: user.rows[0],
+        user: {
+          id: user.rows[0].id,
+          name: user.rows[0].name,
+          office: user.rows[0].office,
+          email: user.rows[0].email,
+          password: user.rows[0].password,
+          image: user.rows[0].image.toString(),
+          createdat: user.rows[0].createdat,
+        },
       }
     }),
   )

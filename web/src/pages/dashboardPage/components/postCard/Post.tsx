@@ -1,10 +1,10 @@
-import { format, formatDistanceToNow } from 'date-fns'
-import ptBR from 'date-fns/locale/pt-BR'
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 
-import { Avatar } from './avatar/Avatar'
-import { Comment } from './Comment'
-
+import { formatDistanceToNow, parseISO } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
+import { Avatar } from '../../../../components/avatar/Avatar'
+import { Comment } from '../../../../components/Comment'
+import { PostsListProps } from '../../useDashboardPage'
 import styles from './Post.module.css'
 
 interface Author {
@@ -26,26 +26,23 @@ export interface PostType {
 }
 
 interface PostProps {
-  post: PostType
+  post: PostsListProps
 }
 
-export function PostOld({ post }: PostProps) {
+export function Post({ post }: PostProps) {
   const [comments, setComments] = useState(['Post muito bacana, hein?!'])
 
   const [newCommentText, setNewCommentText] = useState('')
 
-  const publishedDateFormatted = format(
-    post.publishedAt,
-    "d 'de' LLLL 'às' HH:mm'h'",
+  const publishedDateFormatted = parseISO(post.createdat)
+
+  const publishedDateRelativeToNow = formatDistanceToNow(
+    parseISO(post.createdat),
     {
       locale: ptBR,
+      addSuffix: true,
     },
   )
-
-  const publishedDateRelativeToNow = formatDistanceToNow(post.publishedAt, {
-    locale: ptBR,
-    addSuffix: true,
-  })
 
   function handleCrateNewComment(event: FormEvent) {
     event.preventDefault()
@@ -77,34 +74,25 @@ export function PostOld({ post }: PostProps) {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src={post.author.avatarUrl} hasImage={true} />
+          <Avatar
+            src={`data:image/png;base64,${post.user.image}`}
+            hasImage={true}
+          />
           <div className={styles.authorInfo}>
-            <strong>{post.author.name}</strong>
-            <span>{post.author.role}</span>
+            <strong>{post.user.name}</strong>
+            <span>{post.user.office}</span>
           </div>
         </div>
 
         <time
-          title={publishedDateFormatted}
-          dateTime={post.publishedAt.toISOString()}
+          title={publishedDateFormatted.toISOString()}
+          dateTime={post.createdat}
         >
           {publishedDateRelativeToNow}
         </time>
       </header>
 
-      <div className={styles.content}>
-        {post.content.map((line) => {
-          if (line.type === 'paragraph') {
-            return <p key={line.content}>{line.content}</p>
-          } else if (line.type === 'link') {
-            return (
-              <p key={line.content}>
-                <a href="#">{line.content}</a>
-              </p>
-            )
-          }
-        })}
-      </div>
+      <div className={styles.content}>{post.message}</div>
 
       <form onSubmit={handleCrateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>

@@ -9,3 +9,12 @@ export const getUserById = async () => {
   })
   return response
 }
+
+export const getPosts = async () => {
+  const response = await api.get('/posts', {
+    headers: {
+      token: sessionStorage.getItem('token'),
+    },
+  })
+  return response
+}

@@ -34,7 +34,7 @@ export async function loginApplication(
     createdAt: user.rows[0].createdat,
     email: user.rows[0].email,
     id: user.rows[0].id,
-    image: user.rows[0].image.toString('base64'),
+    image: user.rows[0].image.toString(),
     name: user.rows[0].name,
     office: user.rows[0].office,
     password: user.rows[0].password,
