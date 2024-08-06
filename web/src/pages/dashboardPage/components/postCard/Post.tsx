@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Avatar } from '../../../../components/avatar/Avatar'
-import { Comment } from '../../../../components/Comment'
+import { Comment } from '../../../../components/comment/Comment'
 import { PostsListProps } from '../../useDashboardPage'
 import styles from './Post.module.css'
 

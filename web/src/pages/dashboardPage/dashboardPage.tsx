@@ -1,6 +1,6 @@
-import { Header } from '../../components/Header'
+import { Header } from '../../components/header/Header'
+import { Sidebar } from '../../components/sidebarCard/Sidebar'
 import { Post } from './components/postCard/Post'
-import { Sidebar } from './components/sidebarCard/Sidebar'
 import styles from './dashboardPage.module.css'
 import { useDashboardPage } from './useDashboardPage'
 

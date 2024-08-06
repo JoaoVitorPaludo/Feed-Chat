@@ -7,6 +7,7 @@
 }
 .loginPageCard {
     width: 30%;
+    max-width: 30rem;
     padding: 1rem;
     border-radius: 10px;
     background-color: var(--gray-700);

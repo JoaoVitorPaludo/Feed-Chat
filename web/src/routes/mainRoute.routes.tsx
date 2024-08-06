@@ -5,7 +5,6 @@ import { LoginPage } from '../pages/loginPage/loginPage'
 
 export function PrivateRoutes() {
   const token = sessionStorage.getItem('token')
-  console.log('token', token)
   if (token === null) {
     return <LoginPage />
   }

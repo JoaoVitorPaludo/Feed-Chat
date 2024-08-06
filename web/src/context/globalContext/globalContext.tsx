@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useState } from 'react'
 
-interface UserProfileProps {
+export interface UserProfileProps {
   id: string
   name: string
   email: string
@@ -24,7 +24,6 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
     {} as UserProfileProps,
   )
 
-  console.log('userProfile', userProfile)
   return (
     <GlobalContext.Provider value={{ userProfile, setUserProfile }}>
       {children}
