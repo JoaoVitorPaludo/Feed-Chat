@@ -1,11 +1,14 @@
+import { Dialog, Tooltip } from '@mui/material'
+import { Plus } from 'phosphor-react'
 import { Header } from '../../components/header/Header'
 import { Sidebar } from '../../components/sidebarCard/Sidebar'
+import { ModalPost } from './components/modalPost/ModalPost'
 import { Post } from './components/postCard/Post'
-import styles from './dashboardPage.module.css'
+import styles from './DashboardPage.module.css'
 import { useDashboardPage } from './useDashboardPage'
 
 export function DashboardPage() {
-  const { postsList } = useDashboardPage()
+  const { postsList, setShowModal, showModal } = useDashboardPage()
   // const posts: PostType[] = [
   //   {
   //     id: 1,
@@ -55,6 +58,22 @@ export function DashboardPage() {
             return <Post key={post.id} post={post} />
           })}
         </main>
+        <Dialog
+          open={showModal}
+          onClose={() => setShowModal(false)}
+          PaperProps={{
+            style: {
+              background: 'transparent',
+            },
+          }}
+        >
+          <ModalPost handleCloseModal={() => setShowModal(false)} />
+        </Dialog>
+        <Tooltip title="Novo Post" placement="top">
+          <button className={styles.newPost} onClick={() => setShowModal(true)}>
+            <Plus size={20} weight="bold" />
+          </button>
+        </Tooltip>
       </div>
     </div>
   )

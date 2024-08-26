@@ -1,8 +1,8 @@
 import { Dialog } from '@mui/material'
 import { PencilLine, SignOut } from 'phosphor-react'
 import { Avatar } from '../avatar/Avatar'
-import { UserModal } from './Modal/UserModal'
 import styles from './Sidebar.module.css'
+import { UserModal } from './userModal/UserModal'
 import { useSidebarCard } from './useSidebar'
 export function Sidebar() {
   const { handleExit, userProfile, setOpenUserModal, openUserModal } =

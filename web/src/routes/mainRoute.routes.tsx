@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { GlobalProvider } from '../context/globalContext/globalContext'
-import { DashboardPage } from '../pages/dashboardPage/dashboardPage'
+import { DashboardPage } from '../pages/dashboardPage/DashboardPage'
 import { LoginPage } from '../pages/loginPage/loginPage'
 
 export function PrivateRoutes() {

@@ -17,7 +17,7 @@ export interface PostsListProps {
 }
 export const useDashboardPage = () => {
   const [postsList, setPostsList] = useState<PostsListProps[]>([])
-
+  const [showModal, setShowModal] = useState<boolean>(false)
   async function handleGetPosts() {
     try {
       const { data } = await getPosts()
@@ -31,5 +31,7 @@ export const useDashboardPage = () => {
 
   return {
     postsList,
+    setShowModal,
+    showModal,
   }
 }
