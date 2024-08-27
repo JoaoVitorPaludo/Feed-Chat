@@ -4,7 +4,7 @@ import { formatDistanceToNow, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Avatar } from '../../../../components/avatar/Avatar'
 import { Comment } from '../../../../components/comment/Comment'
-import { PostsListProps } from '../../useDashboardPage'
+import { PostsListProps } from '../../../../context/dashboardContext/dashboardContext'
 import styles from './Post.module.css'
 
 interface Author {

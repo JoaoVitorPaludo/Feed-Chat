@@ -59,6 +59,8 @@
 
 .commentBox footer {
   margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .commentBox footer button {

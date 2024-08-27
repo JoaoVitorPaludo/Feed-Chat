@@ -18,3 +18,19 @@ export const getPosts = async () => {
   })
   return response
 }
+
+export const postPost = async (message: string) => {
+  const response = await api.post(
+    '/posts/create',
+    {
+      message,
+      userId: sessionStorage.getItem('id'),
+    },
+    {
+      headers: {
+        token: sessionStorage.getItem('token'),
+      },
+    },
+  )
+  return response
+}

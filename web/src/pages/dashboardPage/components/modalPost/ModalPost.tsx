@@ -1,9 +1,13 @@
 import { X } from 'phosphor-react'
 import styles from './ModalPost.module.css'
+import { useModalPost } from './useModalPost'
 interface ModalPostProps {
   handleCloseModal: () => void
 }
 export function ModalPost({ handleCloseModal }: ModalPostProps) {
+  const { handleSubmitNewPost, setPostMessage } = useModalPost({
+    handleCloseModal,
+  })
   return (
     <div className={styles.modalContainer}>
       <header>
@@ -16,7 +20,10 @@ export function ModalPost({ handleCloseModal }: ModalPostProps) {
       </header>
       <main className={styles.modalMainContent}>
         <p>Mensagem</p>
-        <textarea placeholder="Digite sua mensagem!" />
+        <textarea
+          placeholder="Digite sua mensagem!"
+          onBlur={(e) => setPostMessage(e.target.value)}
+        />
       </main>
       <footer>
         <button
@@ -26,7 +33,7 @@ export function ModalPost({ handleCloseModal }: ModalPostProps) {
           Cancelar
         </button>
         <button
-          onClick={() => handleCloseModal()}
+          onClick={() => handleSubmitNewPost()}
           className={styles.buttonsModal}
         >
           Enviar

@@ -13,7 +13,7 @@ export async function listPosts(request: FastifyRequest, reply: FastifyReply) {
 
   jwt.verify(token as string, process.env.JWT_SECRET)
 
-  const posts = await knex.raw(`select * from posts`)
+  const posts = await knex.raw(`select * from posts order by id desc`)
 
   if (posts.rows.length === 0) {
     return reply.status(500).send({ message: 'Nenhum Post cadastrado' })
