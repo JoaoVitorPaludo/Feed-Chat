@@ -18,3 +18,5 @@ app.register(authRoutes)
 app.register(usersRoutes, { prefix: '/users' })
 
 app.register(postsRoutes, { prefix: '/posts' })
+
+// app.register(commentsRoutes, { prefix: '/comments' })

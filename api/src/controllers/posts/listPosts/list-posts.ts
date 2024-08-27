@@ -24,7 +24,10 @@ export async function listPosts(request: FastifyRequest, reply: FastifyReply) {
       const user = await knex.raw(
         `SELECT * FROM users WHERE id = ${post.userid}`,
       )
-
+      const comments = await knex.raw(
+        `SELECT * FROM comments WHERE postId = ${post.id}`,
+      )
+      console.log(comments.rows)
       return {
         id: post.id,
         message: post.message,
@@ -38,6 +41,15 @@ export async function listPosts(request: FastifyRequest, reply: FastifyReply) {
           image: user.rows[0].image.toString(),
           createdat: user.rows[0].createdat,
         },
+        comments: comments.rows.map((comment) => {
+          return {
+            id: comment.id,
+            comment: comment.comment,
+            createdAt: comment.createdat,
+            userId: comment.userid,
+            postId: comment.postid,
+          }
+        }),
       }
     }),
   )
