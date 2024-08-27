@@ -2,10 +2,10 @@ import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { Avatar } from '../../../../components/avatar/Avatar'
-import { Comment } from '../../../../components/comment/Comment'
-import { PostsListProps } from '../../../../context/dashboardContext/dashboardContext'
-import styles from './Post.module.css'
+import { PostsListProps } from '../../context/dashboardContext/dashboardContext'
+import { Avatar } from '../avatar/Avatar'
+import { Comment } from '../comment/comment'
+import styles from './post.module.css'
 
 interface Author {
   name: string

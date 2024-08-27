@@ -10,6 +10,8 @@ export const useSidebarCard = () => {
 
   function handleExit() {
     sessionStorage.removeItem('token')
+    sessionStorage.removeItem('id')
+
     navigate('/')
   }
 

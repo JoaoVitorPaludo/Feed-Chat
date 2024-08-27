@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { toast } from 'react-toastify'
-import { DashboardContext } from '../../../../context/dashboardContext/dashboardContext'
-import { postPost } from '../../../../controller/dashboardPage/dashboardPageController'
+import { DashboardContext } from '../../../context/dashboardContext/dashboardContext'
+import { postPost } from '../../../controller/dashboardPage/dashboardPageController'
 
 interface UseModalPostProps {
   handleCloseModal: () => void

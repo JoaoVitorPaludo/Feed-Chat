@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styles from './Comment.module.css'
+import styles from './comment.module.css'
 
 import { ThumbsUp, Trash } from 'phosphor-react'
 import { Avatar } from '../avatar/Avatar'
