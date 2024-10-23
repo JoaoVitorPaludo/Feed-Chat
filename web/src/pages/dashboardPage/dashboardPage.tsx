@@ -4,7 +4,7 @@ import { Header } from '../../components/header/Header'
 import { Post } from '../../components/postCard/post'
 import { Sidebar } from '../../components/sidebarCard/Sidebar'
 import styles from './dashboardPage.module.css'
-import { ModalPost } from './modalPost/ModalPost'
+import { ModalPost } from './modalPost/modalPost'
 import { useDashboardPage } from './useDashboardPage'
 
 export function DashboardPage() {

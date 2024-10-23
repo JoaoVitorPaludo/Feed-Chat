@@ -1,25 +1,36 @@
 import { useState } from 'react'
 import styles from './comment.module.css'
 
+import { formatDistanceToNow, parseISO } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { ThumbsUp, Trash } from 'phosphor-react'
+import { CommentsProps } from '../../context/dashboardContext/dashboardContext'
 import { Avatar } from '../avatar/Avatar'
 
 interface CommentProps {
-  content: string
-  onDeleteComment: (comment: string) => void
+  content: CommentsProps
+  // onDeleteComment: (comment: string) => void
 }
-export function Comment({ content, onDeleteComment }: CommentProps) {
+export function Comment({ content }: CommentProps) {
   const [likeCount, setLikeCount] = useState(0)
 
-  function handleDeleteComment() {
-    onDeleteComment(content)
-  }
+  // function handleDeleteComment() {
+  //   onDeleteComment(content)
+  // }
 
   function handleLikeComment() {
     setLikeCount((state) => {
       return state + 1
     })
   }
+  const publishedDateFormatted = parseISO(content.comment.createdAt)
+  const publishedDateRelativeToNow = formatDistanceToNow(
+    parseISO(content.comment.createdAt),
+    {
+      locale: ptBR,
+      addSuffix: true,
+    },
+  )
 
   return (
     <div className={styles.comment}>
@@ -29,18 +40,25 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>Diego Fernandes</strong>
-              <time title="11 de Maio às 08:13h" dateTime="2022-05-11 08:13:00">
-                Cerca de 1h atrás
+              <strong>{content.user.name}</strong>
+              <time
+                title={publishedDateFormatted.toISOString()}
+                dateTime={content.comment.createdAt}
+              >
+                {publishedDateRelativeToNow}
               </time>
             </div>
 
-            <button onClick={handleDeleteComment} title="Deletar comentário">
+            <button
+              // onClick={handleDeleteComment}
+              title="Deletar comentário"
+            >
               <Trash size={24} />
             </button>
           </header>
 
-          <p>{content}</p>
+          {/* <p>{content}</p> */}
+          <p>{content.comment.comment}</p>
         </div>
 
         <footer>

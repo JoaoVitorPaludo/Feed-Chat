@@ -30,8 +30,7 @@ interface PostProps {
 }
 
 export function Post({ post }: PostProps) {
-  const [comments, setComments] = useState(['Post muito bacana, hein?!'])
-
+  // const [comments, setComments] = useState(['Post muito bacana, hein?!'])
   const [newCommentText, setNewCommentText] = useState('')
 
   const publishedDateFormatted = parseISO(post.createdat)
@@ -45,10 +44,11 @@ export function Post({ post }: PostProps) {
   )
 
   function handleCrateNewComment(event: FormEvent) {
-    event.preventDefault()
+    console.log(event)
+    // event.preventDefault()
 
-    setComments([...comments, newCommentText])
-    setNewCommentText('')
+    // setComments([...comments, newCommentText])
+    // setNewCommentText('')
   }
 
   function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
@@ -60,13 +60,14 @@ export function Post({ post }: PostProps) {
     event.target.setCustomValidity('Esse campo é obrigatório!')
   }
 
-  function deleteComment(commentToDelete: string) {
-    const commentsWithoutDeletedOne = comments.filter((comment) => {
-      return comment !== commentToDelete
-    })
+  // function deleteComment(commentToDelete: string) {
+  //   console.log(commentToDelete)
+  //   // const commentsWithoutDeletedOne = comments.filter((comment) => {
+  //   //   return comment !== commentToDelete
+  //   // })
 
-    setComments(commentsWithoutDeletedOne)
-  }
+  //   // setComments(commentsWithoutDeletedOne)
+  // }
 
   const isNewCommentEmpty = newCommentText.length === 0
 
@@ -114,15 +115,13 @@ export function Post({ post }: PostProps) {
       </form>
 
       <div className={styles.commentList}>
-        {comments.map((comment) => {
-          return (
-            <Comment
-              key={comment}
-              content={comment}
-              onDeleteComment={deleteComment}
-            />
-          )
-        })}
+        {post.comments.map((comment) => (
+          <Comment
+            key={post.id}
+            content={comment}
+            // onDeleteComment={deleteComment}
+          />
+        ))}
       </div>
     </article>
   )

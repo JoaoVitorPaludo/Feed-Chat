@@ -27,7 +27,7 @@ export async function listPosts(request: FastifyRequest, reply: FastifyReply) {
       const comments = await knex.raw(
         `SELECT * FROM comments WHERE postId = ${post.id}`,
       )
-      console.log(comments.rows)
+
       return {
         id: post.id,
         message: post.message,
@@ -41,15 +41,33 @@ export async function listPosts(request: FastifyRequest, reply: FastifyReply) {
           image: user.rows[0].image.toString(),
           createdat: user.rows[0].createdat,
         },
-        comments: comments.rows.map((comment) => {
-          return {
-            id: comment.id,
-            comment: comment.comment,
-            createdAt: comment.createdat,
-            userId: comment.userid,
-            postId: comment.postid,
-          }
-        }),
+        comments: await Promise.all(
+          comments.rows.map(async (comment) => {
+            const commentUser = await knex.raw(
+              `SELECT * FROM users WHERE id = ${comment.userid}`,
+            )
+            return {
+              comment: {
+                id: comment.id,
+                comment: comment.comment,
+                createdAt: comment.createdat,
+                userId: comment.userid,
+                postId: comment.postid,
+              },
+              user: {
+                id: commentUser.rows[0].id,
+                name: commentUser.rows[0].name,
+                office: commentUser.rows[0].office,
+                email: commentUser.rows[0].email,
+                password: commentUser.rows[0].password,
+                image: commentUser.rows[0].image
+                  ? Buffer.from(commentUser.rows[0].image).toString('base64')
+                  : null,
+                createdat: commentUser.rows[0].createdat,
+              },
+            }
+          }),
+        ),
       }
     }),
   )

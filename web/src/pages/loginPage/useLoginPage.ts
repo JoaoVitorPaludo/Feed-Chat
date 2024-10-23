@@ -1,5 +1,7 @@
+import axios from 'axios'
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { GlobalContext } from '../../context/globalContext/globalContext'
 import { postAuthenticate } from '../../controller/loginPage/loginPageController'
 
@@ -18,7 +20,14 @@ export const useLoginPage = () => {
       sessionStorage.setItem('token', data.token)
       sessionStorage.setItem('id', data.user.id)
       navigate('/dashboard')
-    } catch (err) {}
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        console.log(err)
+        toast.error(err?.response?.data.message);
+      } else {
+        toast.error('Um erro inesperado aconteceu!');
+      }
+    }
   }
   return {
     handleAuthenticate,

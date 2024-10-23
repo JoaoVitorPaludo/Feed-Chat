@@ -24,7 +24,8 @@
 }
 
 body {
-  background: var(--gray-900);
+  /* background: var(--gray-900); */
+  background: #1a1a1e;
   color: var(--gray-300);
   /* deixa as fontes mais nítidas */
   -webkit-font-smoothing: antialiased;

@@ -6,26 +6,33 @@ export function LoginPage() {
   return (
     <div className={styles.loginPageContainer}>
       <main className={styles.loginPageCard}>
-        <h1>Login </h1>
+        <h1>Acesse sua conta </h1>
+        <div className={styles.loginPageInputCard}>
+          <p>E-mail</p>
+          <input
+            type="text"
+            placeholder="Seu E-mail"
+            onBlur={(e) =>
+              setLoginProps((prevState) => {
+                return { ...prevState, email: e.target.value }
+              })
+            }
+          />
+        </div>
+        <div className={styles.loginPageInputCard}>
+          <p>Senha</p>
 
-        <input
-          type="text"
-          placeholder="Email"
-          onBlur={(e) =>
-            setLoginProps((prevState) => {
-              return { ...prevState, email: e.target.value }
-            })
-          }
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onBlur={(e) =>
-            setLoginProps((prevState) => {
-              return { ...prevState, password: e.target.value }
-            })
-          }
-        />
+          <input
+            type="password"
+            placeholder="Sua Senha"
+            onBlur={(e) =>
+              setLoginProps((prevState) => {
+                return { ...prevState, password: e.target.value }
+              })
+            }
+          />
+
+        </div>
 
         <button
           className={styles.loginButton}

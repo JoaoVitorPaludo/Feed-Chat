@@ -1,6 +1,24 @@
 import { createContext, useEffect, useState } from 'react'
 import { getPosts } from '../../controller/dashboardPage/dashboardPageController'
 
+export interface CommentsProps {
+  comment: {
+    id: number
+    comment: string
+    createdAt: string
+    userId: number
+    postId: number
+  }
+  user: {
+    createdat: string
+    email: string
+    id: number
+    image: string
+    name: string
+    office: string
+    password: string
+  }
+}
 export interface PostsListProps {
   id: number
   message: string
@@ -14,6 +32,7 @@ export interface PostsListProps {
     image: string
     createdat: string
   }
+  comments: CommentsProps[]
 }
 
 interface DashboardContextProps {
@@ -33,7 +52,9 @@ export const DashboardProvider = ({ children }: DashboardProviderProps) => {
     try {
       const { data } = await getPosts()
       setPostsList(data)
-    } catch (err) {}
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   useEffect(() => {
