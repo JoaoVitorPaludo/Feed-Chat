@@ -77,8 +77,9 @@ export function Post({ post }: PostProps) {
         <div className={styles.author}>
           <Avatar
             src={`data:image/png;base64,${post.user.image}`}
-            hasImage={true}
+            hasImage={post.user.image ? true : false}
           />
+
           <div className={styles.authorInfo}>
             <strong>{post.user.name}</strong>
             <span>{post.user.office}</span>
@@ -119,7 +120,7 @@ export function Post({ post }: PostProps) {
           <Comment
             key={post.id}
             content={comment}
-            // onDeleteComment={deleteComment}
+          // onDeleteComment={deleteComment}
           />
         ))}
       </div>

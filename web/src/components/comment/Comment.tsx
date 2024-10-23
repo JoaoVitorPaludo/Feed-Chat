@@ -1,36 +1,20 @@
-import { useState } from 'react'
 import styles from './comment.module.css'
 
-import { formatDistanceToNow, parseISO } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
 import { ThumbsUp, Trash } from 'phosphor-react'
 import { CommentsProps } from '../../context/dashboardContext/dashboardContext'
 import { Avatar } from '../avatar/Avatar'
+import { useComment } from './useComment'
 
 interface CommentProps {
   content: CommentsProps
   // onDeleteComment: (comment: string) => void
 }
 export function Comment({ content }: CommentProps) {
-  const [likeCount, setLikeCount] = useState(0)
+  const {
+    handleDeleteComment, handleLikeComment, likeCount, publishedDateFormatted, publishedDateRelativeToNow
+  } = useComment({ content })
 
-  // function handleDeleteComment() {
-  //   onDeleteComment(content)
-  // }
 
-  function handleLikeComment() {
-    setLikeCount((state) => {
-      return state + 1
-    })
-  }
-  const publishedDateFormatted = parseISO(content.comment.createdAt)
-  const publishedDateRelativeToNow = formatDistanceToNow(
-    parseISO(content.comment.createdAt),
-    {
-      locale: ptBR,
-      addSuffix: true,
-    },
-  )
 
   return (
     <div className={styles.comment}>
@@ -50,7 +34,7 @@ export function Comment({ content }: CommentProps) {
             </div>
 
             <button
-              // onClick={handleDeleteComment}
+              onClick={() => handleDeleteComment(content.comment.id)}
               title="Deletar comentário"
             >
               <Trash size={24} />

@@ -1,6 +1,7 @@
 import cors from '@fastify/cors'
 import { fastify, FastifyInstance } from 'fastify'
 import { authRoutes } from '../controllers/authentication/routes'
+import { commentsRoutes } from '../controllers/comments/routes'
 import { healthCheckRoutes } from '../controllers/healthCheck/routes'
 import { postsRoutes } from '../controllers/posts/routes'
 import { usersRoutes } from '../controllers/users/routes'
@@ -19,4 +20,4 @@ app.register(usersRoutes, { prefix: '/users' })
 
 app.register(postsRoutes, { prefix: '/posts' })
 
-// app.register(commentsRoutes, { prefix: '/comments' })
+app.register(commentsRoutes, { prefix: '/comments' })
